@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+
+DO NOT MODIFIY - GENERATED CODE
+
+
+-->
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.processing</groupId>
+  <artifactId>video</artifactId>
+  <version>4.0.0</version>
+  <name>processing-video</name>
+  <description>Processing-video (somewhat hacked), with additional java code for a jruby version of processing.</description>
+  <url>https://github.com/monkstone/propane</url>
+  <developers>
+    <developer>
+      <id>monkstone</id>
+      <name>Martin Prout</name>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>codeanticode</id>
+      <name>Andres Colubri</name>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git://github.com/ruby-processing/propane.git</connection>
+    <developerConnection>scm:git:git@github.com/ruby-processing/propane.git</developerConnection>
+    <url>https://github.com/ruby-processing/propane</url>
+  </scm>
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/ruby-processing/propane/issues</url>
+  </issueManagement>
+  <properties>
+    <outputDirectory>${video.basedir}/library</outputDirectory>
+    <polyglot.dump.pom>pom.xml</polyglot.dump.pom>
+    <processing.api>http://processing.github.io/processing-javadocs/core/</processing.api>
+    <source.directory>${video.basedir}/src</source.directory>
+    <video.basedir>${project.basedir}</video.basedir>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.processing</groupId>
+      <artifactId>core</artifactId>
+      <version>3.3.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.freedesktop.gstreamer</groupId>
+      <artifactId>gst1-java-core</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna</artifactId>
+      <version>5.5.0</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <resources>
+      <resource>
+        <directory>${source.directory}/main/java</directory>
+        <excludes>
+          <exclude>**/**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>3.1.2</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>copy-dependencies</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <excludeGroupIds>org.processing</excludeGroupIds>
+            <stripVersion>true</stripVersion>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+          <configuration>
+            <release>11</release>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.10.4</version>
+          <configuration>
+            <detectOfflineLinks>false</detectOfflineLinks>
+            <links>
+              <link>${processing.api}</link>
+              <link>${jruby.api}</link>
+            </links>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.2.0</version>
+          <configuration>
+            <archive>
+              <manifestEntries>
+                <Automatic-Module-Name>org.processing.video</Automatic-Module-Name>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jdeps-plugin</artifactId>
+          <version>3.1.2</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>jdkinternals</goal>
+                <goal>test-jdkinternals</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
